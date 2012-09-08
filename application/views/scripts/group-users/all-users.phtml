@@ -1,0 +1,9 @@
+<select id="allUsers" name="allUsers" multiple="multiple" size="10">
+<?php
+    foreach ($this->users as $user) {
+        echo '<option value="' . $user->id .'">';
+        echo $user->username . ' - ' .$user->getFullname();
+        echo '</option>';
+    }
+?>
+</select>

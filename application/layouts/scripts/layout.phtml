@@ -1,0 +1,25 @@
+<?php
+$this->headMeta()->appendHttpEquiv('Content-Type', 'text/html;charset=utf-8');
+$this->headTitle()->setSeparator(' - ');
+$this->headTitle('UIO ry LIPARI');
+echo $this->doctype();
+?>
+<html>
+<head>
+<?php
+echo $this->headMeta();
+echo $this->headTitle();
+echo $this->headLink()->prependStylesheet($this->baseUrl().'/css/main.css');
+// jQuery must be first javascript file to include
+echo $this->headScript()->appendFile($this->baseUrl().'/js/jquery-1.7.2.min.js')
+        ->appendFile($this->baseUrl().'/js/lipari.js');
+?>
+</head>
+<body>
+<?php echo $this->render('topbar.phtml'); ?>
+<div id="content">
+<h1><?php echo $this->escape($this->title); ?></h1>
+<?php echo $this->layout()->content; ?>
+</div>
+</body>
+</html>

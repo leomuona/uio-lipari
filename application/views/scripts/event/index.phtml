@@ -1,0 +1,45 @@
+<?php
+/**
+* Event listing view (index)
+* author: Leo Muona
+*/
+$translate = Zend_Registry::get('translate');
+$this->title = $translate->_('label_eventmanagement');
+$this->headTitle($this->title);
+?>
+<a href="<?php echo $this->baseUrl('event/create'); ?>">
+<button class="green" type="button">
+<?php echo $translate->_('button_create'); ?>
+</button></a><br/>
+<table class="list">
+    <tr>
+        <th><?php echo $translate->_('label_name'); ?></th>
+        <th><?php echo $translate->_('label_organizing_group'); ?></th>
+        <th><?php echo $translate->_('label_time'); ?></th>
+        <th><?php echo $translate->_('label_ticket_info'); ?></th>
+        <th><?php echo $translate->_('label_state'); ?></th>
+    </tr>
+<?php
+foreach ($this->events as $event) {
+    echo '<tr>';
+    echo '<td>' . $this->escape($event->name) . '</td>';
+    echo '<td>' . $this->escape($event->orgGroup->name) . '</td>';
+    echo '<td>' . $event->time . '</td>';
+    echo '<td>' . $event->printedTickets . ' / ' . $event->maxTickets . '</td>';
+    echo '<td>' . $translate->_($event->state) .'</td>';
+    echo '</tr>';
+}
+?>
+</table>
+<p><?php echo $translate->_('label_page'); ?>&nbsp;
+<?php
+for ($i=1; $i <= $this->pages; $i++) {
+    if ($i == $this->page) {
+        echo '[' . $i . ']&nbsp;';
+    } else {
+        echo '<a href="' . $this->baseUrl('event/?page=' . $i) . '">';
+        echo '[' . $i . ']</a>&nbsp;';
+    }
+}
+?>
+</p>

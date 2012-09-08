@@ -1,0 +1,53 @@
+<?php 
+/**
+* View script to show user information.
+* Author: Leo Muona
+*/
+$translate = Zend_Registry::get('translate');
+
+$this->title = $translate->_('label_userinfo');
+$this->headTitle($this->title);
+?>
+<table>
+    <tr>
+        <td><?php echo $translate->_('label_id'); ?></td>
+        <td><?php echo $this->escape($this->user->id); ?></td>
+    </tr>
+    <tr>
+        <td><?php echo $translate->_('label_username'); ?></td>
+        <td><?php echo $this->escape($this->user->username); ?></td>
+    </tr>
+    <tr>
+        <td><?php echo $translate->_('label_firstname'); ?></td>
+        <td><?php echo $this->escape($this->user->firstname); ?></td>
+    </tr>
+    <tr>
+        <td><?php echo $translate->_('label_lastname'); ?></td>
+        <td><?php echo $this->escape($this->user->lastname); ?></td>
+    </tr>
+    <tr>
+        <td><?php echo $translate->_('label_email'); ?></td>
+        <td><?php echo $this->escape($this->user->email); ?></td>
+    </tr>
+    <tr>
+        <td><?php echo $translate->_('label_phone'); ?></td>
+        <td><?php echo $this->escape($this->user->phone); ?></td>
+    </tr>
+    <tr>
+        <td><?php echo $translate->_('label_role'); ?></td>
+        <td><?php echo $translate->_($this->user->role); ?></td>
+    </tr>
+    <tr>
+        <td><?php echo $translate->_('label_ldap_user'); ?></td>
+        <td><?php echo $this->user->ldap ? $translate->_('label_yes') 
+                : $translate->_('label_no'); ?></td>
+    </tr>
+</table>
+<a href="<?php echo $this->baseUrl('user/edit?id='
+    . $this->escape($this->user->id)); ?>">
+<button type="button" class="blue"><?php echo $translate->_('button_edit'); ?></button></a>
+
+<form id="delete_user_form" action="<?php echo $this->baseUrl('user/delete'); ?>" method="post">
+<input type="hidden" name="id" value="<?php echo $this->escape($this->user->id); ?>"/>
+<button type="submit" class="red"><?php echo $translate->_('button_delete'); ?></button>
+</form>

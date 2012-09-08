@@ -1,0 +1,10 @@
+<?php
+/**
+* login sivu
+* author: Leo Muona
+*/
+$translate = Zend_Registry::get('translate');
+$this->title = $translate->_('title_login');
+$this->headTitle($this->title);
+?>
+<?php echo $this->form->setAction($this->url()); ?>

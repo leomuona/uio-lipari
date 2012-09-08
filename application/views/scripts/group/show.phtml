@@ -1,0 +1,62 @@
+<?php
+/**
+* View file for showing single group info
+* author: Leo Muona
+*/
+$translate = Zend_Registry::get('translate');
+
+$this->title = $translate->_('label_groupinfo');
+$this->headTitle($this->title);
+?>
+<table>
+    <tr>
+        <td><?php echo $translate->_('label_id'); ?></td>
+        <td id="gid"><?php echo $this->group->id; ?></td>
+    </tr>
+    <tr>
+        <td><?php echo $translate->_('label_name'); ?></td>
+        <td><?php echo $this->group->name; ?></td>
+    </tr>
+    <tr>
+        <td><?php echo $translate->_('label_description'); ?></td>
+        <td><?php echo $this->group->description; ?></td>
+    </tr>
+</table>
+<a href="<?php echo $this->baseUrl('group/edit?id='
+    . $this->escape($this->group->id)); ?>">
+<button type="button" class="blue"><?php echo $translate->_('button_edit'); ?></button></a>
+<div id="group_usermanagement">
+    <h2><?php echo $translate->_('title_groups_users'); ?></h2>
+    <div id="groups_userselect_div">
+        <select id="groups_userselect" name="groups_userselect"
+                multiple="multiple" size="10">
+        <?php
+            foreach ($this->users as $user) {
+                echo '<option value="' . $user->id . '">';
+                echo $user->username . ' - ' . $user->getFullname();
+                echo '</option>';
+            }
+        ?>
+        </select>
+    </div>
+    <button type="button" class="green" id="add_users_button">
+        <?php echo $translate->_('button_add_users'); ?>
+    </button>
+    <button type="button" class="red" id="remove_users_button">
+        <?php echo $translate->_('button_remove_users'); ?>
+    </button>
+</div>
+
+<div id="add_to_group_popup" class="popup">
+    <h3><?php echo $translate->_('label_add_users'); ?></h3>
+    <div id="all_userselect_div">
+    </div>
+    <button type="button" onClick="javascript:addUsersToGroup()"
+            class="green">
+        <?php echo $translate->_('button_add'); ?>
+    </button>
+    <button type="button" onClick="javascript:$('#add_to_group_popup').hide('fast')"
+            class="red">
+        <?php echo $translate->_('button_cancel'); ?>
+    </button>
+</div>

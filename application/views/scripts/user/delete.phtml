@@ -1,0 +1,23 @@
+<?php 
+/**
+* View script to show user information.
+* Author: Leo Muona
+*/
+$translate = Zend_Registry::get('translate');
+
+$this->title = $translate->_('label_userinfo');
+$this->headTitle($this->title);
+
+echo '<p>';
+echo $translate->_($this->message);
+if (isset($this->user)) {
+    echo ': ';
+    echo $this->escape($this->user->getFullname()); 
+}
+echo '</p>';
+?>
+<a href="<?php echo $this->baseUrl('user/'); ?>">
+    <button type="button" class="blue">
+        <?php echo $translate->_('button_back'); ?>
+    </button>
+</a>

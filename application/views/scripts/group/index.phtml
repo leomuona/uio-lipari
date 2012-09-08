@@ -1,0 +1,42 @@
+<?php
+/**
+* Group listing
+* author: Leo Muona
+*/
+$translate = Zend_Registry::get('translate');
+
+$this->title = $translate->_('label_groups');
+$this->headTitle($this->title);
+?>
+<a href="<?php echo $this->baseUrl('group/create'); ?>">
+<button class="green" type="button">
+<?php echo $translate->_('button_create'); ?>
+</button></a><br/>
+
+<table class="list">
+    <tr>
+        <th><?php echo $translate->_('label_id'); ?></th>
+        <th><?php echo $translate->_('label_name'); ?></th>
+    </tr>
+<?php
+foreach ($this->groups as $group) {
+    echo '<tr>';
+    echo '<td>' . $group->id . '</td>';
+    echo '<td><a href="' . $this->baseUrl('group/show?id=' . $group->id) . '">';
+    echo $this->escape($group->name) . '</a></td>';
+    echo '</tr>';
+}
+?>
+</table>
+<p><?php echo $translate->_('label_page'); ?>&nbsp;
+<?php
+for ($i=1; $i <= $this->pages; $i++) {
+    if ($i == $this->page) {
+        echo '[' . $i . ']&nbsp;';
+    } else {
+        echo '<a href="' . $this->baseUrl('group/?page=' . $i) . '">';
+        echo '[' . $i . ']</a>&nbsp;';
+    }
+}
+?>
+</p>

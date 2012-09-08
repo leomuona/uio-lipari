@@ -1,0 +1,18 @@
+<?php
+/**
+* create user page
+* author: Leo Muona
+*/
+$translate = Zend_Registry::get('translate');
+$this->title = $translate->_('title_create_user');
+$this->headTitle($this->title);
+
+if($this->errors) {
+    echo '<div class="error">';
+    foreach ($this->errors as $error) {
+        echo $translate->_($error);
+        echo '<br/>';
+    }
+    echo '</div>';
+}
+echo $this->form->setAction($this->url());

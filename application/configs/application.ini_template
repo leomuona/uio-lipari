@@ -1,0 +1,36 @@
+[production]
+phpSettings.date.timezone = "Europe/Helsinki"
+phpSettings.display_startup_errors = 0
+phpSettings.display_errors = 0
+includePaths.library = APPLICATION_PATH "/../library"
+bootstrap.path = APPLICATION_PATH "/Bootstrap.php"
+bootstrap.class = "Bootstrap"
+appnamespace = "Application"
+autoloadernamespaces[] = "Lipari_"
+resources.frontController.controllerDirectory = APPLICATION_PATH "/controllers"
+resources.frontController.params.displayExceptions = 0
+resources.db.adapter = "PDO_MYSQL"
+resources.db.params.host = "localhost"
+resources.db.params.username = "user"
+resources.db.params.password = "password"
+resources.db.params.dbname = "lipari"
+resources.view.doctype = "XHTML1_STRICT"
+resources.view.helperPath.Lipari_View_Helper_ = "Lipari/View/Helper/"
+resources.layout.layoutPath = APPLICATION_PATH "/layouts/scripts/"
+; LDAP server - anonymous bind
+ldap.server1.host = localhost
+ldap.server1.accountDomainName = bar.org
+ldap.server1.accountCanonicalForm = 2
+ldap.server1.baseDn = "ou=People,dc=foo,dc=bar,dc=org"
+ldap.server1.bindRequiresDn = true
+
+[staging : production]
+
+[testing : production]
+phpSettings.display_startup_errors = 1
+phpSettings.display_errors = 1
+
+[development : production]
+phpSettings.display_startup_errors = 1
+phpSettings.display_errors = 1
+resources.frontController.params.displayExceptions = 1

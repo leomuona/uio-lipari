@@ -1,0 +1,46 @@
+<?php
+/**
+* User listing
+* author: Leo Muona
+*/
+$translate = Zend_Registry::get('translate');
+
+$this->title = $translate->_('label_users');
+$this->headTitle($this->title);
+?>
+<a href="<?php echo $this->baseUrl('user/create'); ?>">
+<button class="green" type="button">
+<?php echo $translate->_('button_create'); ?>
+</button></a><br/>
+
+<table class="list">
+    <tr>
+        <th><?php echo $translate->_('label_username'); ?></th>
+        <th><?php echo $translate->_('label_name'); ?></th>
+        <th><?php echo $translate->_('label_email'); ?></th>
+        <th><?php echo $translate->_('label_role'); ?></th>
+    </tr>
+<?php
+foreach ($this->users as $user) {
+    echo '<tr>';
+    echo '<td>' . $this->escape($user->username) . '</td>';
+    echo '<td><a href="' . $this->baseUrl('user/show?id=' . $user->id) . '">';
+    echo $this->escape($user->getFullname()) . '</a></td>';
+    echo '<td>' . $this->escape($user->email) . '</td>';
+    echo '<td>' . $translate->_($user->role) . '</td>';
+    echo '</tr>';
+}
+?>
+</table>
+<p><?php echo $translate->_('label_page'); ?>&nbsp;
+<?php
+for ($i=1;$i <= $this->pages; $i++) {
+    if ($i == $this->page) {
+        echo '[' . $i . ']&nbsp;'; 
+    } else {
+        echo '<a href="' . $this->baseUrl('user/?page=' . $i) . '">';
+        echo '[' . $i . ']</a>&nbsp;';
+    }
+}
+?>
+</p>

@@ -1,0 +1,74 @@
+<?php
+/**
+* This is the top navigation bar.
+* author: Leo Muona
+*/
+$translate = Zend_Registry::get('translate');
+?>
+<div id="topbar">
+<div class="topleft">
+    <img src="<?php echo $this->baseUrl('/images/uio_logo_white.gif'); ?>"
+        height="40px" alt="UIO ry logo"/><span id="lipari">&nbsp;LIPARI</span>
+</div>
+<div class="bottomleft">
+<?php
+$acl = Application_Model_Acl::getInstance();
+$role = 'ROLE_ANONYMOUS';
+if (Zend_Registry::isRegistered('user')) {
+    $role = Zend_Registry::get('user')->role;
+}
+
+// FRONTPAGE
+if ($acl->isAllowed($role, 'IndexController', 'index')) {
+    echo '<a href="' . $this->baseUrl('') . '">' . $translate->_('label_frontpage') . '</a>';
+}
+
+// PRINT TICKETS
+if ($acl->isAllowed($role, 'TicketPrintController', 'index')) {
+    echo '&nbsp;&nbsp';
+    echo '<a href="' . $this->baseUrl('ticket-print/') . '">' . $translate->_('label_ticketprint') . '</a>';
+}
+
+// EVENT MANAGEMENT
+if ($acl->isAllowed($role, 'EventController', 'index')) {
+    echo '&nbsp;&nbsp';
+    echo '<a href="' . $this->baseUrl('event/') . '">' . $translate->_('label_eventmanagement') . '</a>';
+}
+// USERS
+if ($acl->isAllowed($role, 'UserController', 'index')) {
+    echo '&nbsp;&nbsp;';
+    echo '<a href="' . $this->baseUrl('user/') . '">' . $translate->_('label_usermanagement') . '</a>';
+}
+
+// GROUPS
+if ($acl->isAllowed($role, 'GroupController', 'index')) {
+    echo '&nbsp;&nbsp;';
+    echo '<a href="' . $this->baseUrl('group/') . '">' . $translate->_('label_groupmanagement') . '</a>';
+}
+
+// REPORTS
+if ($acl->isAllowed($role, 'ReportController', 'index')) {
+    echo '&nbsp;&nbsp;';
+    echo '<a href="' . $this->baseUrl('report/') . '">' . $translate->_('label_reports') . '</a>';
+}
+?>
+</div>
+<div class="topright">
+<?php
+// PROFILE
+if ($acl->isAllowed($role, 'ProfileController', 'index')) {
+    echo '<a href="' . $this->baseUrl('profile/') . '">' . $translate->_('label_profile') . '</a>';
+}
+// LOGOUT
+if (Zend_Auth::getInstance()->hasIdentity() && $acl->isAllowed($role, 'AuthController', 'logout')) {
+    echo '&nbsp;&nbsp;';
+    echo '<a href="' . $this->baseUrl('auth/logout') . '">' . $translate->_('label_logout') . '</a>';
+}
+// add name
+if (Zend_Registry::isRegistered('user')) {
+    echo '<br/>';
+    echo Zend_Registry::get('user')->getFullname();
+}
+?>
+</div>
+</div>
